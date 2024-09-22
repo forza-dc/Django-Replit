@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Dish - Restaurant Menu</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0a0a23; /* Very dark navy blue */
+            color: #c7f9cc; /* Faded lime yellow */
+        }
+        .navbar-nav .nav-item .nav-link {
+            color: #c7f9cc !important; /* Faded lime yellow */
+        }
+        .footer {
+            background: #343a40;
+            color: #c7f9cc;
+            padding: 20px 0;
+        }
+        .list-group-item {
+            background-color: #1a1a40; /* Slightly lighter than the body background */
+            color: #c7f9cc;
+        }
+        .hero {
+            background: url('/media/Images/Main lobby 2.jpg') no-repeat center center;
+            background-size: cover;
+            height: 75vh;
+            color: #c7f9cc; /* Faded lime yellow */
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="mb-4">Add New Dish to Menu</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="dishName">Dish Name</label>
+            <input type="text" class="form-control" name="name" id="dishName" placeholder="Enter dish name" required>
+        </div>
+        <div class="form-group">
+            <label for="dishDescription">Description</label>
+            <textarea class="form-control" name="description" id="dishDescription" rows="3" placeholder="Enter dish description"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="dishPrice">Price</label>
+            <input type="number" class="form-control" name="price" id="dishPrice" placeholder="Enter dish price" step="0.01" required>
+        </div>
+        <div class="form-group">
+            <label for="dishCategory">Category</label>
+            <select class="form-control" name="category" id="dishCategory">
+                <option>Appetizers</option>
+                <option>Main Courses</option>
+                <option>Desserts</option>
+                <option>Drinks</option>
+                <option>Others</option>
+            </select>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Add Dish">
+    </form>
+
+    <h2 class="mt-5">Menu</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <h3>Appetizers</h3>
+            <ul class="list-group">
+                {% for dish in dishes %}
+                {% if dish.category == "Appetizers" %}
+                <li class="list-group-item">
+                    <strong>{{ dish.name }}</strong>
+                    <p>{{ dish.description }}</p>
+                    <small>Price: ${{ dish.price }}</small>
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <h3>Main Courses</h3>
+            <ul class="list-group">
+                {% for dish in dishes %}
+                {% if dish.category == "Main Courses" %}
+                <li class="list-group-item">
+                    <strong>{{ dish.name }}</strong>
+                    <p>{{ dish.description }}</p>
+                    <small>Price: ${{ dish.price }}</small>
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <h3>Desserts</h3>
+            <ul class="list-group">
+                {% for dish in dishes %}
+                {% if dish.category == "Desserts" %}
+                <li class="list-group-item">
+                    <strong>{{ dish.name }}</strong>
+                    <p>{{ dish.description }}</p>
+                    <small>Price: ${{ dish.price }}</small>
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+</html>
+
